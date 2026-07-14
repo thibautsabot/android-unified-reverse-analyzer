@@ -1,0 +1,25 @@
+# Walkthrough 01 - First Contact
+
+In this walkthrough, we'll reverse engineer the Android game **Goods Sorting** from scratch.
+
+We'll assume we know nothing about the application.
+
+No source code, no documentation, no prior knowledge of the game or the technologies it uses.
+
+Our objective is simply to answer one question.
+
+> **How does this application work?**
+
+---
+
+# What We Have
+
+We start with a single file.
+
+```
+Goods Sorting.xapk
+```
+
+Rather than immediately opening the APK in JADX, let's first perform some reconnaissance.
+
+Just like any investigation, gathering high-level information before diving deeper often helps us choose the right tools.
