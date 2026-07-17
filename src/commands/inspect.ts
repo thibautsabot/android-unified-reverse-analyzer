@@ -29,7 +29,11 @@ function renderConsoleReport(report: InspectionReport, verbose: boolean): string
   const lines: string[] = [];
 
   lines.push(c.bold("AURA APK Inspection"));
-  lines.push(c.dim("Android package inspector and runtime analysis tooling."));
+  lines.push(
+    c.dim(
+      "An Android reverse-engineering toolkit for package inspection, environment diagnostics, and runtime analysis.",
+    ),
+  );
   lines.push("");
 
   section(lines, "Application", c);

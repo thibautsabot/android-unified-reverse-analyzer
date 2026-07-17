@@ -1,7 +1,7 @@
 {
-  "name": "android-unity-runtime-analyzer",
+  "name": "aura-tools",
   "version": "0.1.0",
-  "description": "Android package inspection and runtime analysis tooling.",
+  "description": "An Android reverse-engineering toolkit for package inspection, environment diagnostics, and runtime analysis.",
   "type": "module",
   "bin": {
     "aura": "./dist/cli.js"

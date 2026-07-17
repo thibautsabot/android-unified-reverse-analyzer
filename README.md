@@ -1,64 +1,60 @@
-# Android Unity Reverse Engineering Handbook
+# AURA: Android Unified Reverse Analyzer
 
-Welcome to the **AURA** handbook.
+**AURA** is an Android reverse-engineering toolkit for package inspection, environment diagnostics, and runtime analysis.
 
-This documentation aims to explain the concepts behind Android and Unity reverse engineering.
+It is accompanied by a handbook that explains the concepts behind Android and Unity reverse engineering.
 
-Rather than documenting individual tools, this handbook focuses on understanding **why** each tool exists, **when** it should be used, and **how** it fits into a complete reverse engineering workflow.
+Rather than documenting tools in isolation, the handbook focuses on understanding **why** each tool exists, **when** to use it, and **how** it fits into a complete reverse-engineering workflow.
 
-Whether you're a developer trying to understand how your application can be analyzed, or a reverse engineer exploring Unity applications, the goal is the same: build a solid mental model before diving into implementation details.
+Whether you are a developer trying to understand how an application can be analyzed or a reverse engineer exploring Android and Unity applications, the goal is the same: build a solid mental model before diving into implementation details.
 
----
+## Installation
 
-# Handbook
-
-## Getting Started
-
-- [00 - AURA](00-aura.md) — Optional. Identifies the framework, backend and SDKs in any APK and recommends the right tools for the job.
-
----
-
-## Part I - Android Foundations
-
-These chapters introduce the Android reverse engineering workflow and the tools commonly used to inspect, modify and instrument Android applications.
-
-- [01 - Android Reverse Engineering](01-android-reverse-engineering.md)
-- [02 - APK](02-apk.md)
-- [03 - apktool](03-apktool.md)
-- [04 - Smali](04-smali.md)
-- [05 - JADX](05-jadx.md)
-- [06 - Patching](06-patching.md)
-- [07 - Frida](07-frida.md)
+```sh
+npm install -g aura-tools
+aura inspect app.apk
+aura doctor
+```
 
 ---
 
-## Part II - Unity
+## Handbook
 
-Unity applications follow the same Android packaging format, but most of their logic lives outside of the traditional Java layer.
+The handbook explains the concepts behind Android and Unity reverse engineering — why each tool exists, when to use it, and how it fits into a complete workflow.
 
-These chapters explain how Unity applications are structured and introduce the tools commonly used to reverse engineer them.
+### Getting Started
 
-- [10 - Unity](10-unity.md)
-- [11 - Before IL2CPP (Mono)](11-before-il2cpp.md)
-- [12 - IL2CPP](12-il2cpp.md)
-- [13 - Global Metadata](13-global-metadata.md)
-- [14 - Unity Assets](14-unity-assets.md)
-- [15 - AssetRipper](15-assetripper.md)
-- [16 - Il2CppDumper](16-il2cppdumper.md)
+- [00 - AURA](docs/00-aura.md) — Optional. Identifies the framework, backend and SDKs in any APK and recommends the right tools for the job.
 
 ---
 
-## Part III - Native Analysis
+### Part I - Android Foundations
 
-Once the managed layer has been explored, native analysis becomes essential for understanding Unity's implementation.
-
-- [20 - Native Libraries](20-native-libraries.md)
-- [21 - Ghidra](21-ghidra.md)
-- [22 - libunity.so](22-libunity.md)
-- [23 - libil2cpp.so](23-libil2cpp.md)
+- [01 - Android Reverse Engineering](docs/01-android-reverse-engineering.md)
+- [02 - APK](docs/02-apk.md)
+- [03 - apktool](docs/03-apktool.md)
+- [04 - Smali](docs/04-smali.md)
+- [05 - JADX](docs/05-jadx.md)
+- [06 - Patching](docs/06-patching.md)
+- [07 - Frida](docs/07-frida.md)
 
 ---
 
-## Real case Scenario
+### Part II - Unity
 
-See [Good Sorting.apk]()
+- [10 - Unity](docs/10-unity.md)
+- [11 - Before IL2CPP (Mono)](docs/11-before-il2cpp.md)
+- [12 - IL2CPP](docs/12-il2cpp.md)
+- [13 - Global Metadata](docs/13-global-metadata.md)
+- [14 - Unity Assets](docs/14-unity-assets.md)
+- [15 - AssetRipper](docs/15-assetripper.md)
+- [16 - Il2CppDumper](docs/16-il2cppdumper.md)
+
+---
+
+### Part III - Native Analysis
+
+- [20 - Native Libraries](docs/20-native-libraries.md)
+- [21 - Ghidra](docs/21-ghidra.md)
+- [22 - libunity.so](docs/22-libunity.md)
+- [23 - libil2cpp.so](docs/23-libil2cpp.md)

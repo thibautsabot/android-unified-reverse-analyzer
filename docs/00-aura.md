@@ -1,4 +1,4 @@
-# AURA — Android Unity Runtime Analyzer
+# AURA — Android Unified Reverse Analyzer
 
 Before opening a tool like JADX or apktool, the first question is usually:
 
@@ -19,7 +19,7 @@ This gives you a clear starting point before diving into any of the tools covere
 ## Installation
 
 ```sh
-npm install -g android-unity-runtime-analyzer
+npm install -g aura-tools
 ```
 
 Requires Node.js ≥ 20.
@@ -69,7 +69,7 @@ aura doctor --unity
 
 ```
 AURA APK Inspection
-Android package inspector and runtime analysis tooling.
+An Android reverse-engineering toolkit for package inspection, environment diagnostics, and runtime analysis.
 
 Application
 ------------
