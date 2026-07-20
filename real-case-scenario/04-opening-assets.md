@@ -6,20 +6,9 @@ That part was not obvious at all at the beginning. The APK still looks like a no
 
 ![Unity assets in JADX overview](./screenshots/09-jadx-unity-assets.png)
 
-The package tree gave the first real hints. A few Unity files stood out immediately:
+The package tree gave the first real hints. A few Unity files stood out immediately: `global-metadata.dat`, `globalgamemanagers`, `level0`, `sharedassets0.assets.split*`. The kind of files you recognize if you have opened a Unity build before.
 
-- `global-metadata.dat`
-  - IL2CPP metadata. This is one of the big files.
-- `globalgamemanagers`
-  - Core Unity build data. Usually full of runtime settings.
-- `level0`
-  - Usually a scene-related asset or scene data.
-- `ScriptingAssemblies.json`
-  - The list of scripting assemblies used by the build.
-- `RuntimeInitializeOnLoads.json`
-  - Another Unity-generated file related to startup initialization.
-- `sharedassets0.assets.split*`
-  - Split Unity asset chunks. These are usually parts of a bigger serialized asset file.
+None of them are directly useful for what we want to do here. They are runtime engine files. The level data, item definitions, and sprites live somewhere else. AssetRipper is the tool that gets us there.
 
 ## Opening the package in AssetRipper
 
@@ -164,17 +153,13 @@ So far so good! The board is really a list of `CellInfo`, each cell has coordina
 
 ## Crossing over into the item classes
 
-Once the level structure was clear enough, I wanted to know what those item IDs actually mapped to. That led to `Item.cs` in the same folder. I figured that `Item.cs` would be a good condidate to explain `List<int> items`.
-
-`Item.cs` starts very simply:
+Once the level structure was clear enough, I wanted to know what those item IDs actually mapped to. The field is `List<int> items`. At some point the game has to turn those integers into visible sprites. I opened `Item.cs` assuming this file would be the obvious bridge:
 
 ```csharp
-public class Item : ItemBase
+  public class Item : ItemBase
 ```
 
-That does not look like much, but it tells you that `Item` herits from an `ItemBase` class.
-
-`ItemBase.cs` gives the more important hint:
+Not useful on its own, but `ItemBase.cs` gives the important hint:
 
 ```csharp
 public abstract class ItemBase : MonoBehaviour
@@ -184,8 +169,6 @@ public abstract class ItemBase : MonoBehaviour
 [SerializeField]
 protected ItemType _itemType;
 ```
-
-That field is the bridge between the serialized level data and the actual in-game object.
 
 Then `ItemType.cs` gives the item catalog:
 
@@ -371,10 +354,18 @@ The screenshot only becomes readable when those three layers are combined.
 
 ## The remaining mechanic data
 
-The last piece in `Lv123_10.asset` is the `mechanics` section that we are still yet to understand:
+At this point I felt like I had understood most of the level file. The board, the items, the sprites.
+
+But there was still this section sitting at the bottom of `Lv123_10.asset` that we are yet to understand:
 
 ```yaml
 mechanics:
   - type: 12
-    data: '{"slots":["7:1:1","1:1:1","8:1:1", ... ,"11:7:2"]}'
+    data: '{"slots":["7:1:1","1:1:1","8:1:1"]}'
 ```
+
+We have no idea what `12` refers to, what `7:1:1` means, or which class was even responsible for parsing any of it.
+
+That is where the next part starts:
+
+[05 - Game Mechanics](05-game-mecanics.md)

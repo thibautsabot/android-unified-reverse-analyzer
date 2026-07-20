@@ -207,3 +207,5 @@ The only visible class was R, which is a generated resource class.
 Most of the remaining packages belonged to third-party SDKs. This suggested that the Android layer was mainly a wrapper around the Unity runtime rather than the location of the game logic.
 
 Our next task is to inspect the launcher activity, identify the Unity startup path, and record what is actually present in the application's Android package.
+
+[04 - Opening assets](04-opening-assets.md)
