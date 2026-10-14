@@ -99,3 +99,5 @@ You know that you're done when there is no more loading bar at the bottom right 
 
 ![13 - Ghidra Analysis](./screenshots/13-ghidra-analysis.png)
 _It stayed on this state for more than 20 minutes_
+
+[07 - Filling the board](07-filling-the-board.md)

@@ -72,6 +72,43 @@ And at that point it started to look like a real level file.
 
 There is the timer, the lock count, the hidden-item mechanic count, the cells, and the mechanics section.
 
+### A few words, before they get confusing
+
+This file is going to use the same few words over and over. Let me fix them now, so we all mean the same thing. Take this part of the file:
+
+```yaml
+    cells:
+    - posX: -9
+      posY: 1
+      itemsLayer:
+      - items: 00000000470000004a000000
+      - items: 3d0000003e00000000000000
+```
+
+On the screen, a **cell** is one shelf holding 3 items in a row. Behind that visible row, there can be more rows of 3 waiting for their turn: when you clear the front row, the next one comes forward. (I checked this by playing: the next row does move forward. The game's code agrees: `ItemContainer` has a `_currentTopLayerOrigin` field and methods named `RemoveTopRow` and `DelayActiveNextRow`.)
+
+```text
+                     slot 0   slot 1   slot 2
+ layer 0 (visible)   [ 0  ]   [ 71 ]   [ 74 ]     ← what you play with
+ layer 1 (next)      [ 61 ]   [ 62 ]   [ 0  ]     ← comes forward when layer 0 is cleared
+ ...
+```
+
+| Word | Meaning | In the file |
+|---|---|---|
+| **board** | everything you see in a level | `level` |
+| **cell** | one shelf: the visible row of 3, plus the rows queued behind it | each entry of `cells` |
+| **position** | where a cell sits on the board | `posX`, `posY` |
+| **layer** | one row of 3. Layer 0 is the visible one, the others wait behind it | each entry of `itemsLayer` |
+| **slot** | one of the 3 places of a layer | one value of `items` |
+| **item** | what's in a slot: a number. `0` means empty | the numbers in `items` |
+
+So in the YAML above, there is **one cell** (at position `-9, 1`) with **two layers**, and each layer has 3 slots. The numbers inside `items` are hex blobs, we'll decode them later in this chapter.
+
+The word "cell" is a bit misleading, since it suggests one thing. The game uses it everywhere in its code (`Cell`, `CellInfo`, `CellType`...). Its code also uses the word *shelf* for the part that puts cells on screen (`SpawnShelf`). Same object.
+
+I'll keep using "cell", and read it as "shelf".
+
 The `m_Script` field was the next useful clue, because it tells you which Unity script owns this asset.
 
 A grep on that GUID gave:
@@ -117,7 +154,7 @@ public class LevelInfo {
     public int timeToPlay;         // seconds (Level 123 = 300)
     public int numberCellLock;     // locked (ad-gated) cells (Level 123 = 4)
     public int itemHiden;          // hidden layer mechanic count (Level 123 = 2)
-    public List<CellInfo> cells;   // 12 cells for Level 123, each cell being a block of 3 items
+    public List<CellInfo> cells;   // 12 cells for Level 123, each cell being a shelf of 3 items (plus layers behind)
     public List<MechanicData> mechanics;  // extra rules
 }
 ```
@@ -266,8 +303,8 @@ Look at how cute it is!
 ## The part where I had to cheat a little
 
 If we go back to our original file `Lv123_10.asset`, we now understand that we have 300s to play it, 4 cells are being blocked by an ad.
-Thanks to the mScript attached, we also understand that the cell object in the YAML snows the position of each block of 3 items. There are 12 blocks in this file which is what the screenshot looks like.
-Each of the blocks as an item layer:
+Thanks to the mScript attached, we also understand that each entry of `cells` in the YAML gives the position of one cell. There are 12 cells in this file, which is what the screenshot looks like.
+Each cell has several layers. Here are the layers of one of them:
 
 ```yaml
       itemsLayer:
@@ -294,7 +331,7 @@ slot 0=empty slot 1=AS_71 slot 2=AS_74
 
 ```
 
-So a block like that is really saying something like:
+So a layer like that is really saying something like:
 
 - slot 0 = empty
 - slot 1 = `AS_71`

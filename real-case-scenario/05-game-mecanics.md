@@ -162,7 +162,7 @@ I do not want to pretend I know exactly what each one does, because the bodies w
 Here's my take on it:
 
 - `ShuffleItemVisual` — shuffles which sprite each item type gets, without changing the underlying item values (like a dark filter or maybe even the "hidden item" with a green background and a question mark)
-- `ShuffleCellPos` — shuffles the positions of cells on the board (cells being the blocks of 3). Since no matter how much I restarted the level, the layout was the same, I'm assuming the content of the cells are being changed.
+- `ShuffleCellPos` — shuffles the positions of cells on the board. Since no matter how much I restarted the level, the layout was the same, I'm assuming the content of the cells are being changed. *(Spoiler: I had it backwards. See [08](08-normal-levels.md).)*
 - `ShuffleItemInCell` — shuffles items within each cell (duh)
 
 The item IDs in the level file are stable. What changes is how they are arranged and presented. The player sees a different board every run, but the game logic underneath is always playing from the same template.
